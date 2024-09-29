@@ -20,6 +20,8 @@ services:
       - database:/var/lib/postgresql/data
 
   splitpro:
+    build:
+      context: ./ # Change this to your local path if needed
     image: muthuraman6669/split-pro:latest
     container_name: splitpro
     restart: always
