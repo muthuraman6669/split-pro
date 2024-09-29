@@ -2,7 +2,6 @@ import Head from 'next/head';
 import MainLayout from '~/components/Layout/MainLayout';
 import clsx from 'clsx';
 import { Button } from '~/components/ui/button';
-import { ArrowUpOnSquareIcon } from '@heroicons/react/24/outline';
 import { type User } from '@prisma/client';
 import { api } from '~/utils/api';
 import Link from 'next/link';
@@ -14,22 +13,8 @@ import { type NextPageWithUser } from '~/types';
 import useEnableAfter from '~/hooks/useEnableAfter';
 import { LoadingSpinner } from '~/components/ui/spinner';
 import { NotificationModal } from '~/components/NotificationModal';
-import { GetServerSideProps } from 'next';
 
 const BalancePage: NextPageWithUser = () => {
-  function shareWithFriends() {
-    if (navigator.share) {
-      navigator
-        .share({
-          title: 'SplitPro',
-          text: "Check out SplitPro. It's an open source free alternative for Splitwise",
-          url: 'https://splitpro.app',
-        })
-        .then(() => console.log('Successful share'))
-        .catch((error) => console.log('Error sharing', error));
-    }
-  }
-
   const balanceQuery = api.user.getBalances.useQuery();
   const showProgress = useEnableAfter(350);
 
@@ -39,18 +24,7 @@ const BalancePage: NextPageWithUser = () => {
         <title>Outstanding balances</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <MainLayout
-        title="Balances"
-        actions={
-          typeof window !== 'undefined' && !!window.navigator?.share ? (
-            <Button variant="ghost" onClick={shareWithFriends}>
-              <ArrowUpOnSquareIcon className="h-6 w-6 " />
-            </Button>
-          ) : (
-            <div className="h-6 w-10" />
-          )
-        }
-      >
+      <MainLayout title="Balances" actions={<div className="h-6 w-10" />}>
         <NotificationModal />
         <div className="">
           <div className="mx-4 flex items-stretch justify-between gap-4">
@@ -179,10 +153,5 @@ const FriendBalance: React.FC<{
 };
 
 BalancePage.auth = true;
-
-// export const getServerSideProps = (async () => {
-
-//   return { props: { webPushKey: env } };
-// }) satisfies GetServerSideProps<{ webPushKey: string }>;
 
 export default BalancePage;
