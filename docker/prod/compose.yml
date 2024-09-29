@@ -21,7 +21,7 @@ services:
 
   splitpro:
     build:
-      context: ./ # Change this to your local path if needed
+      context: ./docker/Dockerfile
     image: muthuraman6669/split-pro:latest
     container_name: splitpro
     restart: always
