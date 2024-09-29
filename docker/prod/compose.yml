@@ -1,4 +1,4 @@
-name: split-pro-prod
+version: '3.8'  # Specify the version of the Compose file format
 
 services:
   postgres:
@@ -14,19 +14,15 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    # ports:
-    #   - "5432:5432"
     volumes:
       - database:/var/lib/postgresql/data
 
   splitpro:
-    build:
-    context: /home/ubuntu/docker
-    image: muthuraman6669/split-pro:latest
+    image: muthuraman6669/split-pro:latest  # Use the image you just pushed
     container_name: splitpro
     restart: always
     ports:
-      - ${PORT:-3000}:${PORT:-3000}
+      - ${PORT:-3000}:${PORT:-3000}  # Expose the port
     environment:
       - PORT=${PORT:-3000}
       - DATABASE_URL=${DATABASE_URL:?err}
