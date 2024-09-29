@@ -18,6 +18,8 @@ services:
       - database:/var/lib/postgresql/data
 
   splitpro:
+      context: .
+      dockerfile: Dockerfile  
     image: muthuraman6669/split-pro:latest  # Use the image you just pushed
     container_name: splitpro
     restart: always
