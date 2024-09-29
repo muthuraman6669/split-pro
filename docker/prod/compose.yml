@@ -20,8 +20,6 @@ services:
       - database:/var/lib/postgresql/data
 
   splitpro:
-    build:
-      context: ./docker/Dockerfile
     image: muthuraman6669/split-pro:latest
     container_name: splitpro
     restart: always
